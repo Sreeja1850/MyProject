@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY TO-DO APP</title>
+    <h1 style="text-align: center;">TO-DO APP</h1>
+</head>
+<body>
+   <form action="/add" method="post">
+       <div>
+        <label style="font-size: 18pt; font-weight: bold;" for="name">Todo item</label>
+        <br>
+        <input style="font-size: 12pt; height: 20px; width:280px;" type="text" name="item" placeholder="Enter ToDo item"></input>
+        <br>
+        <br>
+        <button type="submit">Add Item</button>
+        <hr>
+        
+        
+       </div>
+   </form>
+   <div>
+        <h2>Incompleted tasks</h2>
+        <ul>
+            {% for each in incompleted_list %}
+            <li style="font-size: 18pt;">{{each.title}} &nbsp;&nbsp; <a href="/delete/{{each.id}}">Delete</a> &nbsp;&nbsp; <a href="/complete/{{each.id}}">Mark as complete</a> </li>
+            <br>
+            {% endfor %}
+        </ul>
+        <br>
+        <h2>Completed tasks</h2>
+        <ul>
+            {% for each in completed_list %}
+            <li style="font-size: 18pt;">{{each.title}} &nbsp;&nbsp; <a href="/delete/{{each.id}}">Delete</a> </li>
+            <br>
+            {% endfor %}
+        </ul>
+    </div>
+        
+</body>
+</html>
