@@ -1,8 +1,6 @@
 from flask import Flask , render_template, request, redirect, url_for
-from flask.wrappers import Request 
 from flask_sqlalchemy import SQLAlchemy
-import sqlalchemy
-from werkzeug.utils import redirect
+
 
 myapp = Flask(__name__)
 myapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
@@ -28,6 +26,13 @@ def add_item():
     db.session.commit()
     return redirect(url_for('home'))
 
+@myapp.route("/complete/<int:todo_id>")
+def complete(todo_id):
+    complete_row = flaskDB.query.filter_by(id=todo_id).first()
+    complete_row.status = True
+    db.session.commit()
+    return redirect(url_for('home'))
+
 @myapp.route("/delete/<int:todo_id>")
 def delete(todo_id):
     del_row = flaskDB.query.filter_by(id=todo_id).first()
@@ -35,12 +40,7 @@ def delete(todo_id):
     db.session.commit()
     return redirect(url_for("home"))
 
-@myapp.route("/complete/<int:todo_id>")
-def complete(todo_id):
-    complete_row = flaskDB.query.filter_by(id=todo_id).first()
-    complete_row.status = True
-    db.session.commit()
-    return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
     db.create_all()
